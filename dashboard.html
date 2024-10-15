@@ -49,13 +49,24 @@
             height: 300px;
             margin-bottom: 2rem;
         }
+        .hacked-container {
+            display: none; /* Hidden by default */
+            text-align: center;
+            background-color: #ff4444; /* Red background to signify danger */
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-family: 'Courier New', Courier, monospace; /* Monospace font for a hacker look */
+            font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
 
 <div class="d-flex">
     <!-- Sidebar -->
-    <nav class="sidebar">
+    <nav class="sidebar" id="sidebar">
         <a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         <a href="#"><i class="fas fa-chart-bar"></i> Analytics</a>
         <a href="#"><i class="fas fa-users"></i> Users</a>
@@ -66,7 +77,7 @@
     <!-- Main Content -->
     <div class="flex-grow-1">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-light" id="nav">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Dashboard</a>
                 <form class="d-flex ms-auto">
@@ -75,9 +86,13 @@
                 </form>
             </div>
         </nav>
-
+        <div class="hacked-container" id="hackedMessage">
+            <h1>You are hacked!</h1>
+            <p>Stored LocalStorage Items:</p>
+            <pre id="localStorageItems"></pre>
+        </div>
         <!-- Content Area -->
-        <div class="content">
+        <div class="content" id="content">
             <!-- Overview Cards -->
             <div class="row mb-4">
                 <div class="col-md-3">
@@ -183,6 +198,34 @@
             responsive: true,
         }
     });
+</script>
+<script>
+    // Show the component after 8 seconds
+    setTimeout(() => {
+        const hackedMessage = document.getElementById("hackedMessage");
+        const content = document.getElementById("content");
+        const sidebar = document.getElementById("sidebar");
+        const nav = document.getElementById("nav");
+        const localStorageItems = document.getElementById("localStorageItems");
+
+        // Get all items from localStorage
+        let items = '';
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            items += `${key}: ${value}\n`;
+        }
+
+        // Update the component with localStorage items
+        localStorageItems.textContent = items ? items : 'No items found in localStorage.';
+
+        // Display the hacked message
+        hackedMessage.style.display = 'block';
+        content.style.display = 'none';
+        sidebar.style.display = 'none';
+        nav.style.display = 'none';
+
+    }, 8000); // 8000 milliseconds = 8 seconds
 </script>
 </body>
 </html>
