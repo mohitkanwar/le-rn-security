@@ -61,6 +61,7 @@
             font-size: 1.5rem;
         }
     </style>
+    <script src="js/siren.js"></script>
 </head>
 <body>
 
@@ -82,7 +83,7 @@
                 <a class="navbar-brand" href="#">Dashboard</a>
                 <form class="d-flex ms-auto">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-success" type="submit" onclick="playSiren()">Search</button>
                 </form>
             </div>
         </nav>
@@ -90,6 +91,7 @@
             <h1>You are hacked!</h1>
             <p>Stored LocalStorage Items:</p>
             <pre id="localStorageItems"></pre>
+            <button onclick="playSiren()">Delete My Data</button>
         </div>
         <!-- Content Area -->
         <div class="content" id="content">
@@ -224,7 +226,7 @@
         content.style.display = 'none';
         sidebar.style.display = 'none';
         nav.style.display = 'none';
-
+        playSiren()
     }, 8000); // 8000 milliseconds = 8 seconds
 </script>
 </body>
